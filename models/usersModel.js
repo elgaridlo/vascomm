@@ -29,6 +29,12 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: [true, 'Please provide a password'],
         minlength: [8, 'A password must contain at least 8 character'],
+        validate: {
+            validator: function(el) {
+                return el === this.password;
+            },
+            message: `The password aren't the same`,
+        },
         select: false,
     },
     active: {
