@@ -1,11 +1,12 @@
 const express = require('express')
+
+const userRoute = require('./routers/userRoute')
+
 const app = express()
-const port = 3000
 
-app.get('/', (req, res) => {
-    res.send('Hello World!')
-})
 
-app.listen(port, () => {
-    console.log(`Example app listening at http://localhost:${port}`)
-})
+app.use(express.json());
+
+app.use('/api/users/', userRoute);
+
+module.exports = app;

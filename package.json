@@ -1,0 +1,16 @@
+{
+    "name": "vascomm_be",
+    "version": "1.0.0",
+    "description": "",
+    "main": "app.js",
+    "scripts": {
+        "start": "nodemon server.js"
+    },
+    "author": "Elga Ridlo S",
+    "license": "ISC",
+    "dependencies": {
+        "express": "^4.17.1",
+        "mongoose": "^5.11.9",
+        "nodemon": "^2.0.7"
+    }
+}
