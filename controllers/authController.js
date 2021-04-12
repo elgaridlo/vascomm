@@ -29,14 +29,16 @@ exports.login = catchAsync(async(req, res, next) => {
     if (!email || !password) {
         return next(new AppError('Please provide email and password', 400));
     }
-    console.log('email = ', req.body)
-        // 2) Check if email and password is correct
+
+    // 2) Check if email and password is correct
     const user = await User.findOne({ email }).select('+password');
     if (!user || (user.password != password)) {
         // 401 means unauthorize
         return next(new AppError('Incorrect email or password!', 401));
     }
-    console.log('user = ', user);
+
+    this.user = user.role;
+    console.log('req.user = ', this.user)
 
     // 3) If everything ok, send back to the client
     res.status(200).json({
@@ -46,3 +48,14 @@ exports.login = catchAsync(async(req, res, next) => {
         },
     });
 });
+
+exports.restrictTo = (...roles) => (req, res, next) => {
+    // roles['admin', 'user']. role='user'
+    if (!roles.includes(this.user)) {
+        return next(
+            // 403 means forbidden
+            new AppError('You do not have permission to perform this action', 403)
+        );
+    }
+    next();
+};
