@@ -1,9 +1,11 @@
 const mongoose = require('mongoose');
+const dotenv = require('dotenv');
 
+dotenv.config({ path: './config.env' });
 
 const app = require('./app');
 
-const DB = `mongodb://localhost:27017/vascomm_account`;
+const DB = process.env.DATABASE_LOCAL;
 
 mongoose
     .connect(DB, {
